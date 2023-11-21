@@ -21,7 +21,6 @@ const Login = ({ onLogin }) => {
       const data = await response.json();
 
       if (response.ok) {
-        // Store the access token and expiration time in localStorage
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('expiresIn', data.expiresIn);
 
@@ -40,30 +39,35 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Paper elevation={3} style={{ padding: '20px', maxWidth: '300px', margin: 'auto', marginTop: '50px' }}>
-      <h2>Login</h2>
+    <div style={{ background: 'linear-gradient(to right, #FFD700, #FFA500)', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Paper elevation={3} style={{ padding: '20px', maxWidth: '300px', background: 'white' }}>
+      <h2 style={{ textAlign: 'center' }}>CRUD OPERATIONS</h2>
+      <h4 style={{ textAlign: 'center' }}>SIGN IN</h4>
+      <p style={{ textAlign: 'center' }}>Enter your Credentials to access your account</p>
       <TextField
-        label="Username"
+        label="Enter your email"
         fullWidth
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         margin="normal"
       />
       <TextField
-        label="Password"
+        label="Enter your Password"
         type="password"
         fullWidth
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         margin="normal"
       />
-      <Button variant="contained" onClick={handleLogin} style={{ marginTop: '20px' }}>
+      <Button variant="contained" onClick={handleLogin} style={{ marginTop: '20px', width: '100%', background: 'linear-gradient(to right, #FFD700, #FFA500)' }}>
         Login
       </Button>
-      <Button variant="outlined" onClick={fillUserCredentials} style={{ marginTop: '10px' }}>
+      <Button variant="outlined" onClick={fillUserCredentials} style={{ marginTop: '10px', width: '100%', color: '#000' }}>
         User Credentials
       </Button>
+      <h5 style={{ textAlign: 'center' }}>Forgot user password?<span ><button style={{ color: '#FFD700' ,background: "transparent",border: "none"}}>Reset password</button></span> </h5>
     </Paper>
+  </div>
   );
 };
 
