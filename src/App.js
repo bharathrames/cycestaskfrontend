@@ -9,10 +9,14 @@ const App = () => {
     setLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+  };
+
   return (
     <div>
       {loggedIn ? (
-        <Attractions />
+        <Attractions onLogout={handleLogout} />
       ) : (
         <Login onLogin={handleLogin} />
       )}

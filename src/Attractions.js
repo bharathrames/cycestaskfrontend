@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, TextField, TextareaAutosize } from '@mui/material';
 
-const Attractions = () => {
+
+const Attractions = ({ onLogout }) => {
   const [attractions, setAttractions] = useState([]);
   const [selectedAttraction, setSelectedAttraction] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -13,6 +14,8 @@ const Attractions = () => {
     coverimage: '',
     detail: '',
   });
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -121,10 +124,19 @@ const Attractions = () => {
     setEditedAttraction((prevAttraction) => ({ ...prevAttraction, [name]: value }));
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    onLogout();
+  };
+
+
   return (
     <div>
-      <nav style={{ backgroundColor: '#333', padding: '10px', color: '#fff' }}>
-        <h1>Travel App</h1>
+      <nav style={{ backgroundColor: '#333', color: '#fff', display: 'flex', 'justify-content': 'space-between' }}>
+        <h1>Travel App </h1>
+        <Button variant="outlined" style={{ color: 'red', marginLeft: 'auto' }} onClick={handleLogout}>
+          Logout
+        </Button>
       </nav>
       {selectedAttraction || editMode ? (
         <div>
@@ -139,7 +151,7 @@ const Attractions = () => {
                   onChange={handleInputChange}
                   fullWidth
                   disabled
-                  style={{ margin:'15px'}}
+                  style={{ margin: '15px' }}
                 />
                 <TextField
                   label="Name"
@@ -147,7 +159,7 @@ const Attractions = () => {
                   value={editedAttraction.name}
                   onChange={handleInputChange}
                   fullWidth
-                  style={{ margin:'15px'}}
+                  style={{ margin: '15px' }}
                 />
                 <TextField
                   label="Cover Image"
@@ -155,7 +167,7 @@ const Attractions = () => {
                   value={editedAttraction.coverimage}
                   onChange={handleInputChange}
                   fullWidth
-                  style={{ margin:'15px'}}
+                  style={{ margin: '15px' }}
                 />
                 <TextareaAutosize
                   label="Detail"
@@ -165,7 +177,7 @@ const Attractions = () => {
                   minRows={3}
                   maxRows={5}
                   style={{ width: '100%', margin: '10px' }}
-                  
+
                 />
                 <div>
                   <Button variant="contained" onClick={handleSave}>
@@ -178,11 +190,11 @@ const Attractions = () => {
               </div>
             </div>
           ) : (
-            <div>
-            <div style={{ backgroundColor: '#333', padding: '10px', color: '#fff', textAlign: 'right' }}>
-              <button onClick={handleBack}>X</button>
-            </div>
-            <div style={{ padding: '20px', textAlign: 'center' }}>
+            <div style={{ border: '1px solid #ccc', borderRadius: '10px', width: '50%', margin: '0 auto' }}>
+              <div style={{ backgroundColor: '#333', padding: '10px', color: '#fff', textAlign: 'right' }}>
+                <button onClick={handleBack}>X</button>
+              </div>
+              <div style={{ padding: '20px', textAlign: 'center' }}>
                 <h1>{selectedAttraction.name}</h1>
                 <img
                   src={selectedAttraction.coverimage}
@@ -193,7 +205,7 @@ const Attractions = () => {
                 {!editMode && (
                   <div>
                     <Button variant="contained" onClick={() => handleEdit(selectedAttraction)}>Edit</Button>{" "}
-                    <Button  variant="outlined" color="error" onClick={() => handleDelete(selectedAttraction.id)}>Delete</Button>
+                    <Button variant="outlined" color="error" onClick={() => handleDelete(selectedAttraction.id)}>Delete</Button>
                   </div>
                 )}
               </div>
@@ -201,7 +213,7 @@ const Attractions = () => {
           )}
         </div>
       ) : (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', }}>
           {attractions.map((attraction) => (
             <div key={attraction.id} style={{ width: '30%', margin: '10px' }}>
               <div style={{ border: '1px solid #ccc', padding: '10px' }}>
